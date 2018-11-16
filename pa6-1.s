@@ -1,6 +1,9 @@
 		@---------------------
-		@	Programming Assignment 6, Problem 1
-		@	Your required header information goes here
+	@ Collin Mask and Anthony De La Cruz
+	@ 11/16/2018
+	@	Programming Assignment 6, Problem 1
+	@	Your required header information goes here
+		@ 
 		@---------------------
 		@ In those you will use the provided function pow to comput
 		@ a^b - 3a
@@ -11,7 +14,18 @@
 	.func main	
 main:	PUSH {LR}
 	@	Your code goes here
+	LDR R0, =a @ load  value a into R0
+	LDR R0,[R0] @ load R0 into R0 to assign the value of a to it
+	LDR R1, =b @ load value b to R1
+	LDR R1, [R1] @ load R1 into R1 to assign the value of b to it
+	MOV R5, #3 @ move 3 into R5
+	BL pow
 
+	LDR R7, =a @ laod a into R7
+	LDR R7,[R7] @load R7 into R7 to assign the value of a to it
+
+	MUL R3, R7, R5 @ multiply R5 and R7 and put into R3
+	SUB R4, R0, R3 @ substract R0 and R3 and put into R4 
 
 	@ Code to print your answer.  DO NOT CHANGE!
 	LDR	R0, =out
