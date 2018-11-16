@@ -1,4 +1,6 @@
-		@---------------------
+	@---------------------
+	@ Collin Mask and Anthony De La Cruz
+	@ 11/16/2018
 		@	Programming Assignment 6, Problem 2
 		@	Your required header information goes here
 		@--------------------
@@ -51,8 +53,34 @@ main:		@	DO NOT TOUCH!
 		@---------------------
 		@	div function.  Your code goes here!
 		@---------------------
-div:		PUSH	{LR}	@ Leave this here
+div:		PUSH	{LR}	 @ Leave this here
+	PUSH   {R2-R14} 	 @ push registers R2-R14 into stack
+	MOV R2, R1 		 @ move R1 which is 9 into R2
+	MOV R1, R0 		 @ move R0 which is 5 into R1
+	MOV R3, R2		 @ R3 contains the value of R2
+	CMP R3, R1, LSR #1 	 @ rotate to the right by 1 value in R1 and put it into R3 
 
+Div1:
+	MOVLS R3, R3, LSL #1 	 @ rotate to the left by 1 if R3 lower or same than R3
+	CMP R3, R1, LSR #1	 @ rotate to the right value in R1 by 1 and put into R3
+	BLS Div1		 @ if lower or same go back to the top
+	MOV R4, #0 
+
+Div2:
+	CMP R1, R3 		 @ compare R1 and R3 
+	SUBCS R1, R1, R3         @ substract R1 and R3 if the operation creates a result bigger than 32-bits
+	ADC R4, R4, R4
+
+	MOV R3, R3, LSR #1	 @ rotate to the right by 1 value in R3 and put it into R3
+	CMP R3, R2 		 @ compare R3 and R2	
+	BHS Div2		 @ if higher or same go back to the top 
+
+	MOV R0, R4 		 
+	POP {R2-R14}		 @ pop R2-R14 out of stack
+	POP {PC}
+	
+	
+	
 		@ Your code here
 	
 		POP	{PC} 	@ return statement
